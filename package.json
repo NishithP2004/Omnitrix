@@ -1,0 +1,22 @@
+{
+  "name": "omnitrix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NishithP2004/Omnitrix.git"
+  },
+  "author": "Nishith P",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NishithP2004/Omnitrix/issues"
+  },
+  "homepage": "https://github.com/NishithP2004/Omnitrix#readme",
+  "dependencies": {
+    "discord.js": "^12.4.1"
+  }
+}
