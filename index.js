@@ -189,7 +189,7 @@ let embed = new Discord.MessageEmbed()
             value: "Hydrokinesis \nWater blades & water absorption \nWater blades & water absorption \nEnhanced strength, durability, agility and speed"})
           msg.channel.send({embed});
 
-    } else if (msg.content === `${prefix}Grey matter` || msg.content === `${prefix}grey matter`) {
+    } else if (msg.content === `${prefix}Grey matter` || msg.content === `${prefix}Greymatter`) {
         let embed = new Discord.MessageEmbed()
         .setTitle("Grey Matter")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -294,7 +294,7 @@ let embed = new Discord.MessageEmbed()
             value: "Kinetic Self-Duplication \nSize Alteration \nStrength Amplification \nDuplicate Assimilation"})
           msg.channel.send({embed});
 
-    } else if (msg.content === `${prefix}Shock Rock` || msg.content === `${prefix}shock rock`) {
+    } else if (msg.content === `${prefix}Shock rock` || msg.content === `${prefix}Shockrock`) {
         let embed = new Discord.MessageEmbed()
         .setTitle("Shock Rock")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -317,18 +317,19 @@ let embed = new Discord.MessageEmbed()
 
     }
     if (msg.content !== `${prefix}help` || msg.content !== `${prefix}it's hero time`) {
+      if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time` ) {
+        setTimeout(() => {
+          // Removes the user from the set after 20 seconds
+          talkedRecently.delete(msg.author.id);
+        }, 0);
+      } else {
     // Adds the user to the set so that they can't talk for 20 seconds
     talkedRecently.add(msg.author.id);
     setTimeout(() => {
       // Removes the user from the set after 20 seconds
       talkedRecently.delete(msg.author.id);
     }, 20000);
-    if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time` ) {
-      setTimeout(() => {
-        // Removes the user from the set after 20 seconds
-        talkedRecently.delete(msg.author.id);
-      }, 0);
-    }
+  }
   }
   }
   // Help Embed - Commands List
@@ -346,7 +347,7 @@ let embed = new Discord.MessageEmbed()
        * Takes a Date object, defaults to current date.
        */
       .setTimestamp()
-      .addFields({ name: "It's Hero time !!", value: "``!Fourarms`` \n``!Heatblast`` \n``!Cannonbolt`` \n``!Stinkfly`` \n``!Diamondhead`` \n``!Wildvine`` \n``!Upgrade`` \n``!Overflow`` \n``!Grey matter`` \n``!XLR8`` \n``!Humungousaur`` \n``!Rath`` \n``!Slapback`` \n``!Shockrock``", inline: true});
+      .addFields({ name: "It's Hero time !!", value: "``!Fourarms`` \n``!Heatblast`` \n``!Cannonbolt`` \n``!Stinkfly`` \n``!Diamondhead`` \n``!Wildvine`` \n``!Upgrade`` \n``!Overflow`` \n``!Grey matter`` \n``!XLR8`` \n``!Humungousaur`` \n``!Rath`` \n``!Slapback`` \n``!Shock rock``", inline: true});
     msg.channel.send({ embed });
   }
 });
