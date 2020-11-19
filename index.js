@@ -11,7 +11,7 @@ client.on('ready', () => {
 // Event Listener
 client.on('message', (msg) => {
   if (talkedRecently.has(msg.author.id)) {
-    if (msg.author.username !== "Omnitrix" && msg.content !== `${prefix}help`) {
+    if (msg.author.username !== "Omnitrix" && msg.content !== `${prefix}help` && msg.content !== `${prefix}it's hero time`) {
     msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
     }
 } else {
@@ -316,13 +316,19 @@ let embed = new Discord.MessageEmbed()
           msg.channel.send({embed});
 
     }
-    if (msg.content !== `${prefix}help` || msg.content !== `${prefix}its hero time` ) {
+    if (msg.content !== `${prefix}help` || msg.content !== `${prefix}it's hero time`) {
     // Adds the user to the set so that they can't talk for 20 seconds
     talkedRecently.add(msg.author.id);
     setTimeout(() => {
       // Removes the user from the set after 20 seconds
       talkedRecently.delete(msg.author.id);
     }, 20000);
+    if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time` ) {
+      setTimeout(() => {
+        // Removes the user from the set after 20 seconds
+        talkedRecently.delete(msg.author.id);
+      }, 0);
+    }
   }
   }
   // Help Embed - Commands List
