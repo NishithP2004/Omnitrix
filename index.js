@@ -5,13 +5,18 @@ const talkedRecently = new Set();
 
 client.login(process.env.TOKEN);
 client.on('ready', () => {
-    console.log("It's Hero Time 👽 !!");
+  client.user.setStatus("online");
+  client.user.setActivity("!help", {type: "LISTENING"});
+  console.log("It's Hero Time 👽 !!");
 })
 
 // Event Listener
 client.on('message', (msg) => {
+  if (msg.author.bot) return;
+  if (msg.author.id === client.user.id) return;
+  if (!msg.content.startsWith(`${prefix}`)) return;
   if (talkedRecently.has(msg.author.id)) {
-    if (msg.author.username !== "Omnitrix" && msg.content !== `${prefix}help` && msg.content !== `${prefix}it's hero time`) {
+    if (msg.content !== `${prefix}help` && msg.content !== `${prefix}it's hero time`) {
     msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
     }
 } else {
