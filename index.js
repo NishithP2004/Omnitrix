@@ -8,7 +8,7 @@ const talkedRecently = new Set();
 client.login(process.env.TOKEN);
 client.on('ready', () => {
   client.user.setStatus("online");
-  client.user.setActivity("!help", {
+  client.user.setActivity("o!help", {
     type: "LISTENING"
   });
   console.log("It's Hero Time 👽 !!");
@@ -437,15 +437,18 @@ client.on('message', (msg) => {
       });
 
     }
-    if (msg.content !== `${prefix}help` || msg.content !== `${prefix}it's hero time`) {
+    if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time`) {
+      setTimeout(() => {
+        // Removes the user from the set after 20 seconds
+        talkedRecently.delete(msg.author.id);
+      }, 0);
+    } else {
       // Adds the user to the set so that they can't talk for 20 seconds
       talkedRecently.add(msg.author.id);
       setTimeout(() => {
         // Removes the user from the set after 20 seconds
         talkedRecently.delete(msg.author.id);
       }, 20000);
-    } else if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time`) {
-      talkedRecently.delete(msg.author.id);
     }
   }
   // Help Embed - Commands List
@@ -465,7 +468,7 @@ client.on('message', (msg) => {
       .setTimestamp()
       .addFields({
         name: "It's Hero time !!",
-        value: "``!Fourarms`` \n``!Heatblast`` \n``!Cannonbolt`` \n``!Stinkfly`` \n``!Diamondhead`` \n``!Wildvine`` \n``!Upgrade`` \n``!Overflow`` \n``!Grey matter`` \n``!XLR8`` \n``!Humungousaur`` \n``!Rath`` \n``!Slapback`` \n``!Shock rock``",
+        value: "``o!Fourarms`` \n``o!Heatblast`` \n``o!Cannonbolt`` \n``o!Stinkfly`` \n``o!Diamondhead`` \n``o!Wildvine`` \n``o!Upgrade`` \n``o!Overflow`` \n``o!Grey matter`` \n``o!XLR8`` \n``o!Humungousaur`` \n``o!Rath`` \n``o!Slapback`` \n``o!Shock rock``",
         inline: true
       });
     msg.channel.send({
