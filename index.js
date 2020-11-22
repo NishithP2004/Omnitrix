@@ -19,6 +19,16 @@ client.on('message', (msg) => {
   if (msg.author.bot) return;
   if (msg.author.id === client.user.id) return;
   if (!msg.content.startsWith(`${prefix}`)) return;
+  // Admin - sever list command
+  if (msg.content === `${prefix}list-servers`) {
+    if (msg.author.id === process.env.ADMIN) {
+      client.guilds.cache.forEach((guild) => {
+        msg.channel.send(guild.name)
+      })
+    } else {
+      msg.channel.send(`Sorry ${msg.author.id}, you don't have the required permissions to execute this command.`)
+    }
+  }
   if (talkedRecently.has(msg.author.id)) {
     if (msg.content !== `${prefix}help` && msg.content !== `${prefix}it's hero time`) {
       msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
