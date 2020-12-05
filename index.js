@@ -19,7 +19,7 @@ client.on('message', (msg) => {
   if (msg.author.id === client.user.id) return;
   if (!msg.content.startsWith(`${prefix}`)) return;
   // Admin - sever list command
-  if (msg.content === `${prefix}list-servers`) {
+  if (msg.content.toLowerCase() === `${prefix}ls`) {
     if (msg.author.id === process.env.ADMIN) {
       client.guilds.cache.forEach((guild) => {
         msg.channel.send(guild.name)
@@ -29,11 +29,11 @@ client.on('message', (msg) => {
     }
   }
   if (talkedRecently.has(msg.author.id)) {
-    if (msg.content !== `${prefix}help` && msg.content !== `${prefix}it's hero time`) {
+    if (msg.content.toLowerCase() !== `${prefix}help` && msg.content.toLowerCase() !== `${prefix}it's hero time`) {
       msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
     }
   } else {
-    if (msg.content === `${prefix}Fourarms` || msg.content === `${prefix}fourarms`) {
+    if (msg.content.toLowerCase() === `${prefix}fourarms`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Four Arms")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -54,7 +54,7 @@ client.on('message', (msg) => {
       msg.channel.send({
         embed
       });
-    } else if (msg.content === `${prefix}Heatblast` || msg.content === `${prefix}heatblast`) {
+    } else if (msg.content.toLowerCase() === `${prefix}heatblast`) {
 
       let embed = new Discord.MessageEmbed()
         .setTitle("Heatblast")
@@ -77,7 +77,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Cannonbolt` || msg.content === `${prefix}cannonbolt`) {
+    } else if (msg.content.toLowerCase() === `${prefix}cannonbolt`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Cannonbolt")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -99,7 +99,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Stinkfly` || msg.content === `${prefix}stinkfly`) {
+    } else if (msg.content.toLowerCase() === `${prefix}stinkfly`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Stinkfly")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -121,7 +121,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Diamondhead` || msg.content === `${prefix}diamondhead`) {
+    } else if (msg.content.toLowerCase() === `${prefix}diamondhead`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Diamondhead")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -143,7 +143,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Wildvine` || msg.content === `${prefix}wildvine`) {
+    } else if (msg.content.toLowerCase() === `${prefix}wildvine`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Wildvine")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -165,7 +165,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Upgrade` || msg.content === `${prefix}upgrade`) {
+    } else if (msg.content.toLowerCase() === `${prefix}upgrade`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Upgrade")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -187,7 +187,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Overflow` || msg.content === `${prefix}overflow`) {
+    } else if (msg.content.toLowerCase() === `${prefix}overflow`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Overflow")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -209,7 +209,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Grey matter` || msg.content === `${prefix}Greymatter`) {
+    } else if (msg.content.toLowerCase() === `${prefix}grey matter`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Grey Matter")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -231,7 +231,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}XLR8` || msg.content === `${prefix}xlr8`) {
+    } else if (msg.content.toLowerCase() === `${prefix}xlr8`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("XLR8")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -253,7 +253,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Humungousaur` || msg.content === `${prefix}humungousaur`) {
+    } else if (msg.content.toLowerCase() === `${prefix}humungousaur`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Humungousaur")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -275,7 +275,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Rath` || msg.content === `${prefix}rath`) {
+    } else if (msg.content.toLowerCase() === `${prefix}rath`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Rath")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -297,7 +297,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Slapback` || msg.content === `${prefix}slapback`) {
+    } else if (msg.content.toLowerCase() === `${prefix}slapback`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Slapback")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -319,7 +319,7 @@ client.on('message', (msg) => {
         embed
       });
 
-    } else if (msg.content === `${prefix}Shock rock` || msg.content === `${prefix}Shockrock`) {
+    } else if (msg.content.toLowerCase() === `${prefix}shock rock`) {
       let embed = new Discord.MessageEmbed()
         .setTitle("Shock Rock")
         .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
@@ -343,7 +343,7 @@ client.on('message', (msg) => {
 
     }
     // Cooldown Function
-    if (msg.content === `${prefix}help` || msg.content === `${prefix}it's hero time`) {
+    if (msg.content.toLowerCase() === `${prefix}help` || msg.content.toLowerCase() === `${prefix}it's hero time`) {
       setTimeout(() => {
         // Removes the user from the set after 20 seconds
         talkedRecently.delete(msg.author.id);
@@ -358,7 +358,7 @@ client.on('message', (msg) => {
     }
   }
   // Help Embed - Commands List
-  if (msg.content === `${prefix}help` || msg.content === `${prefix}its hero time`) {
+  if (msg.content.toLowerCase() === `${prefix}help` || msg.content.toLowerCase() === `${prefix}its hero time`) {
     let embed = new Discord.MessageEmbed()
       .setTitle("Omnitrix Commands list")
       .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
