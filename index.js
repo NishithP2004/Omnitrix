@@ -368,7 +368,7 @@ client.on('message', (msg) => {
       .setTimestamp()
       .addFields({
         name: "It's Hero time !!",
-        value: "``o!Fourarms`` \n``o!Heatblast`` \n``o!Cannonbolt`` \n``o!Stinkfly`` \n``o!Diamondhead`` \n``o!Wildvine`` \n``o!Upgrade`` \n``o!Overflow`` \n``o!Grey matter`` \n``o!XLR8`` \n``o!Humungousaur`` \n``o!Rath`` \n``o!Slapback`` \n``o!Shock rock``",
+        value: "`o!Fourarms` \n`o!Heatblast` \n`o!Cannonbolt` \n`o!Stinkfly` \n`o!Diamondhead` \n`o!Wildvine` \n`o!Upgrade` \n`o!Overflow` \n`o!Grey matter` \n`o!XLR8` \n`o!Humungousaur` \n`o!Rath` \n`o!Slapback` \n`o!Shock rock`",
       });
     msg.channel.send({
       embed
