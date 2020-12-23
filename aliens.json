@@ -1,0 +1,175 @@
+{
+    "Omnitrix": {
+        "fourarms": {
+            "name": "Four Arms",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FFour_Arms.png?alt=media&token=99257e58-5f6c-4af7-82e7-bd03431a87c0",
+            "species": "Tetramand",
+            "abilities": "Sonic Clap \nShock waves \nHeat resistance \nEnhanced strength, durability, agility, speed and reflexes"  
+        },
+        "heatblast": {
+            "name": "Heatblast",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FHeatblast.png?alt=media&token=a3008fa6-fbc7-4f9f-858e-b811bf1df20a",
+            "species": "Pyronite",
+            "abilities": "Flight \nPyrokinesis \nPyro & Cryo Immunity \nFire Tornado Generation \nEnhanced speed, strength and durability"
+        },
+        "stinkfly": {
+            "name": "Stinkfly",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FStinkfly.png?alt=media&token=dcfdcfb4-4d9e-498e-9d1f-937b9b5579a5",
+            "species": "Lepidopterran",
+            "abilities": "Flight \nSlime projection \nToxic gas & Saliva \nEnhanced strength, durability, agility and speed"
+        },
+        "cannonbolt": {
+            "name": "Cannonbolt",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FCannonbolt.png?alt=media&token=8487ce61-0c04-4830-ba2e-25ab7c43d01e",
+            "species": "Arburian Pelarota",
+            "abilities": "Transforms in to a sphere \nInvulnerable in sphere form \nAcid & Lava Immunity \nSharp claws and teeth \nEnhanced strength, durability, agility and speed"    
+        },
+        "diamondhead": {
+            "name": "Diamondhead",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FDiamondhead.png?alt=media&token=1f19059c-c1fd-419c-87b9-0ba4cb77156c",
+            "species": "Petrosapien",
+            "abilities": "Crystallokinesis \nWeapon manifestation, body alteration \nRegeneration \nEnergy Refraction & Redirection \nEnhanced strength and durability"
+        },
+        "wildvine": {
+            "name": "Wildvine",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FWildvine.png?alt=media&token=80b9ef8d-63a8-4694-97ca-0bddca20d14d",
+            "species": "Florauna",
+            "abilities": "Chlorokinesis \nElasticity and body alteration \nVine generation and tentacles \nEnhanced strength, flexibility, agility and digging"
+        },
+        "upgrade": {
+            "name": "Upgrade",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FUpgrade.png?alt=media&token=04852467-55de-46db-98aa-23e28f3522c1",
+            "species": "Galvanic Mechamorph",
+            "abilities": "Technokinesis \nOptic beam \nShapeshifting and regeneration \nEnhanced strength, flexibility, dexterity and durability"    
+        },
+        "overflow": {
+            "name": "Overflow",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FOverflow.png?alt=media&token=7a338311-a40b-45e2-87f3-4ec3e1b95970",
+            "species": "Cascan",
+            "abilities": "Hydrokinesis \nWater blades & water absorption \nWater blades & water absorption \nEnhanced strength, durability, agility and speed"
+        },
+        "grey matter": {
+            "name": "Grey Matter",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FGrey_matter.png?alt=media&token=a8f9c7f3-038e-4406-9256-b9d5eb71758b",
+            "species": "Galvan",
+            "abilities": "Wall crawling \nSharp teeth, sticky skin \nUnderwater breathing \nEnhanced intelligence, agility, flexibility and jumping"
+        },
+        "xlr8": {
+            "name": "XLR8",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FXlr8.png?alt=media&token=a65ce05f-627e-4162-9121-03d247ff898a",
+            "species": "Kineceleran",
+            "abilities": "Accelerated Thinking \nWall and Water Running, sticky skin \nVortex Creation \nEnhanced strength, durability, agility, speed and reflexe"
+        },
+        "humungousaur": {
+            "name": "Humungousaur",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FHumungousaur.png?alt=media&token=6dd7cfdd-834b-41c7-ba48-c9873a7d58dc",
+            "species": "Vaxasaurian",
+            "abilities": "Stegosauride Features \nSonic Clap \nShock Waves \nEnhanced strength, flexibility, agility and digging"
+        },
+        "rath": {
+            "name": "Rath",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FRath.png?alt=media&token=08f9a848-6cc2-4171-8289-e88f2c819648",
+            "species": "Appoplexian",
+            "abilities": "Shock Waves \nPowerful Roar \nExtendable Claws \nEnhanced strength, durability, agility, speed and reflexes"
+        },
+        "slapback": {
+            "name": "Slapback",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FSlapback.png?alt=media&token=b2763909-2008-453c-b29b-eacd970c2d51",
+            "species": "Ekoplektoid",
+            "abilities": "Kinetic Self-Duplication \nSize Alteration \nStrength Amplification \nDuplicate Assimilation"
+        },
+        "shock rock": {
+            "name": "Shock Rock",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FShock_Rock.png?alt=media&token=73d208eb-7769-49d4-87e9-99419f19b630",
+            "species": "Fulmini",
+            "abilities": "Electrokinesis \nWeapon Manifestation \nForce Field Generation \nWormhole Generation"
+        },
+        "jetray": {
+            "name": "Jetray",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FJetray.png?alt=media&token=0efe58a5-3db9-4e93-b04a-6ac9db38fe69",
+            "species": "Aerophibian",
+            "abilities": "High-Speed Flight \nNeuroshock Blasts \nSpace Survivability \nSharp/Prehensile Feet, teeth & claws \nEnhanced Speed"
+        },
+        "goop": {
+            "name": "Goop",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FGoop.png?alt=media&token=d1685b6b-1b61-4710-ad58-6d0de71da135",
+            "species": "Polymorph",
+            "abilities": "Gookinetic Shapeshifting \nElasticity, Levitation & Flight \nSmall Space Maneuvering \nEnhanced Strength, Agility, Flexibility"
+        },
+        "way big": {
+            "name": "Way Big",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FWaybig.png?alt=media&token=8150eca9-abee-4cd5-b091-a969a7b9bbb1",
+            "species": "To'kustar",
+            "abilities": "Cosmic Rays \nSpace Survivability \nEnergy Deflection \nSharp Head Fin, Arm Blades, Shoulder Blades \nEnhanced Strength, Durability & Agility"
+        }
+    },
+    "Antitrix": {
+        "wreckingbolt": {
+            "name": "Wreckingbolt",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FWreckingbolt.png?alt=media&token=497d100d-7c4f-4579-952c-c78280805fde",
+            "species": "Mutant Arburian Pelarota",
+            "abilities": "Transforms in to a sphere \nInvulnerable in sphere form \nAcid & Lava Immunity \nSharp claws and teeth \nEnhanced strength, durability, agility and speed"
+        },
+        "thornblade": {
+            "name": "Thornblade",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FThornblade.png?alt=media&token=6c4f4c01-c946-4cca-a543-0983ff82c79f",
+            "species": "Mutant Florauna",
+            "abilities": "Chlorokinesis \nElasticity and body alteration \nVine generation and tentacles \nEnhanced strength, flexibility, agility and digging"
+        },
+        "undertow": {
+            "name": "Undertow",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FUndertow.png?alt=media&token=f2d0370d-da7e-4574-867c-eba52d4a3adf",
+            "species": "Mutant Cascan",
+            "abilities": "Hydrokinesis \nWater blades & water absorption \nWater blades & water absorption \nEnhanced strength, durability, agility and speed"
+        },
+        "dark matter": {
+            "name": "Dark Matter",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FDark_Matter.png?alt=media&token=f901d323-a1a7-4c98-9938-1acbc85fd11e",
+            "species": "Mutant Galvan",
+            "abilities": "Accelerated Synaptic Activity \nWeapon Manifestation \nCerebrospinal Fluid Secretion & Crystallizing Flames \nEnhanced Intelligence, Strength, Agility, Flexibility, Jumping & Dexterity"
+        },
+        "crystalfist": {
+            "name": "Crystalfist",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FCrystalfist.png?alt=media&token=81f87d9b-c1b9-4bc5-94cb-aa0cc260c108",
+            "species": "Mutant Subsapien",
+            "abilities": "Crystallokinesis \nWeapon manifestation, body alteration \nRegeneration \nEnergy Refraction & Redirection \nEnhanced strength and durability"
+        },
+        "bootleg": {
+            "name": "Bootleg",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FBootleg.png?alt=media&token=4698acfe-6522-4bfb-844f-a5feb545712c",
+            "species": "Mutant Galvanic Mechamorph",
+            "abilities": "Technokinesis \nOptic beam \nShapeshifting and regeneration \nEnhanced strength, flexibility, dexterity and durability"
+        },
+        "quadsmack": {
+            "name": "Quadsmack",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FQuad_Smack.png?alt=media&token=72604a79-ea0f-4845-9397-814fd69bb0fd",
+            "species": "Mutant Tetramand",
+            "abilities": "Sonic Clap \nShock waves \nHeat resistance \nEnhanced strength, durability, agility, speed and reflexes"
+        },
+        "hotshot": {
+            "name": "Hotshot",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FHotpose.png?alt=media&token=5d4472da-4efa-4945-a852-8328eea8e9e6",
+            "species": "Mutant Pyronite",
+            "abilities": "Flight \nPyrokinesis \nPyro & Cryo Immunity \nFire Tornado Generation \nEnhanced speed, strength and durability"
+        },
+        "rush": {
+            "name": "Rush",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FRush.png?alt=media&token=3299a186-5d53-4ae5-b302-0715ab6aeca7",
+            "species": "Mutant Kineceleran",
+            "abilities": "Accelerated Thinking \nWall and Water Running, sticky skin \nVortex Creation \nEnhanced strength, durability, agility, speed and reflexe"
+        },
+        "skunkmoth": {
+            "name": "Skunkmoth",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FSkunkmoth.png?alt=media&token=c24da535-ef64-4469-b58a-9daff5415abc",
+            "species": "Mutant Lepidopterran",
+            "abilities": "Flight \nSlime projection \nToxic gas & Saliva \nEnhanced strength, durability, agility and speed"
+        },
+        "bashmouth": {
+            "name": "Bashmouth",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FBashmouth.png?alt=media&token=2c07f9a0-41d9-409f-9701-ed9845868510",
+            "species": "Mutant Unknown",
+            "abilities": "Armor Generation \nSkilled Melee Combatan \nPowerful Roar \nRetractable Metal Teeth \nSharp claws and teeth \nEnhanced strength, durability, agility and speed"
+        }
+    }
+
+}

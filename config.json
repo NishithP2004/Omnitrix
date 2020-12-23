@@ -1,3 +1,11 @@
 {
-    "prefix": "o!"
+    "prefix": "o!",
+    "prefix11": "a!",
+    "color": "#b0f013",
+    "color11": "#ff3208",
+    "author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c",
+    "footer_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c",
+    "omnitrix_logo": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c",
+    "antitrix_logo": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2Fantitrix-logo.png?alt=media&token=f42b43df-dbfc-4afc-87aa-e928c5a139d0",
+    "antitrix_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2Fantitrix.png?alt=media&token=deba6b82-cf72-4dc4-a143-c1e2c09fa7eb"
 }

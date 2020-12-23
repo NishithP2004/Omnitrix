@@ -1,25 +1,151 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const { prefix } = require('./config.json');
+const {
+  prefix,
+  prefix11,
+  color,
+  color11,
+  author_img,
+  footer_img,
+  omnitrix_logo,
+  antitrix_logo,
+  antitrix_author_img
+} = require('./config.json');
+const aliens = require('./aliens.json');
 require('dotenv').config() // env
+const fetch = require('node-fetch');
 const talkedRecently = new Set();
+const talkedRecently11 = new Set();
+var setting;
 
-client.login(process.env.TOKEN);
+client.login(process.env.TESTING_SANDBOX);
+
 client.on('ready', () => {
   client.user.setStatus("online");
-  client.user.setActivity("o!help", {
+  client.user.setActivity("o!it's hero time", {
     type: "LISTENING"
   });
   console.log("It's Hero Time 👽 !!");
 })
 
+// Guild Create Welcome message
+client.on("guildCreate", (guild) => {
+  let defaultChannel = "";
+  guild.channels.cache.forEach((channel) => {
+    if (channel.type == "text" && defaultChannel == "") {
+      if (channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
+        defaultChannel = channel;
+      }
+    }
+  })
+  let embed = new Discord.MessageEmbed()
+    .setTitle(`:tada: Thanks for adding me to the server __${guild.name}__ !`)
+    .setDescription("> For helpful commands, type `o!it's hero time`")
+    .setColor(`${color}`)
+    .setFooter("© Nishith P", `${footer_img}`)
+    .setTimestamp()
+
+  defaultChannel.send({
+    embed
+  });
+
+});
+
 // Event Listener
-client.on('message', (msg) => {
+client.on('message', async (msg) => {
   if (msg.author.bot) return;
   if (msg.author.id === client.user.id) return;
-  if (!msg.content.startsWith(`${prefix}`)) return;
+  if (!msg.content.startsWith(`${prefix}`) && !msg.content.startsWith(`${prefix11}`)) return;
+
+  // Splitting message content
+  const args = msg.content.toLowerCase().slice(`${prefix.length}`).trim().split(/ +/);
+  var gifArr = "";
+  var command;
+  if (args.length > 1) {
+    gifArr = args[0];
+    command = args.slice(0, args.length).join(" ");
+  } else {
+    command = args.shift();
+    gifArr = command;
+  }
+
+  const regex = /(heatblast|fourarms|stinkfly|cannonbolt|diamondhead|wildvine|upgrade|overflow|grey matter|xlr8|humungousaur|rath|slapback|shock rock|jetray|goop|way big)/;
+  const regex11 = /(wreckingbolt|thornblade|undertow|dark matter|crystalfist|bootleg|quadsmack|hotshot|rush|skunkmoth|bashmouth)/;
+  const res = regex.test(command);
+  const res11 = regex11.test(command);
+
+  // Identifying mode 
+  if (msg.content.startsWith(`${prefix}`)) {
+    setting = "Omnitrix";
+  } else if (msg.content.startsWith(`${prefix11}`)) {
+    setting = "Antitrix";
+  }
+
+  // Main Commands List
+  if (command === "it's hero time") {
+    let embed = new Discord.MessageEmbed()
+      .setTitle("Omnitrix Commands Palette")
+      .setAuthor("Omnitrix", `${author_img}`)
+      .setColor(`${color}`)
+      .setFooter("© Nishith P", `${footer_img}`)
+      .setThumbnail(`${omnitrix_logo}`)
+      .setTimestamp()
+      .addFields({
+        name: "Omnitrix",
+        value: "`o!help`",
+        inline: true
+      })
+      .addFields({
+        name: "Antitrix",
+        value: "`a!help`",
+        inline: true
+      })
+      .addFields({
+        name: "Misc",
+        value: "`o!gif <search q>(optional)` \n`o!clear`",
+        inline: false
+      })
+    msg.channel.send({
+      embed
+    });
+  }
+
+  // Bulk-delete command
+  if (command === "clear") {
+    if (msg.guild.me.hasPermission("ADMINISTRATOR") || msg.guild.me.hasPermission("MANAGE_MESSAGES")) {
+      msg.channel.messages.fetch({
+        limit: 100
+      }).then((messages) => {
+        const botMessages = [];
+        messages.filter(m => m.author.id === process.env.BOT_ID).forEach(mesg => botMessages.push(mesg))
+        msg.channel.bulkDelete(botMessages).then(() => {
+          msg.channel.send("Cleared bot messages").then(mesg => mesg.delete({
+            timeout: 3000
+          }))
+        });
+      })
+    } else {
+      msg.channel.send("Sorry, I dont have the necessary permissions to execute that command.");
+    }
+  }
+
+  // GIF Command
+  if (gifArr === "gif") {
+    var search_term
+    if (args.length > 1) {
+      search_term = command;
+    } else {
+      search_term = "ben 10";
+    }
+    let url = "https://api.tenor.com/v1/search?q=" + search_term + "&key=" + process.env.KEY + "&limit=10";
+    let response = await fetch(url);
+    let json = await response.json();
+    let index = Math.floor(Math.random() * json.results.length);
+    msg.channel.send(json.results[index].url);
+  }
+
   // Admin - sever list command
-  if (msg.content.toLowerCase() === `${prefix}ls`) {
+  if (command === "ls") {
     if (msg.author.id === process.env.ADMIN) {
       client.guilds.cache.forEach((guild) => {
         msg.channel.send(guild.name)
@@ -28,350 +154,142 @@ client.on('message', (msg) => {
       msg.channel.send(`Sorry ${msg.author.id}, you don't have the required permissions to execute this command.`)
     }
   }
-  if (talkedRecently.has(msg.author.id)) {
-    if (msg.content.toLowerCase() !== `${prefix}help` && msg.content.toLowerCase() !== `${prefix}it's hero time`) {
-      msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
-    }
-  } else {
-    if (msg.content.toLowerCase() === `${prefix}fourarms`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Four Arms")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FFour%20Arms.jpg?alt=media&token=1581c629-178c-4629-8318-f2720cf12f39")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Tetramand",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Sonic Clap \nShock waves \nHeat resistance \nEnhanced strength, durability, agility, speed and reflexes"
-        })
-      msg.channel.send({
-        embed
-      });
-    } else if (msg.content.toLowerCase() === `${prefix}heatblast`) {
-
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Heatblast")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FHeatblast.jpg?alt=media&token=57c0719f-954b-482f-8479-f88e8c644212")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Pyronite",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Flight \nPyrokinesis \nPyro & Cryo Immunity \nEnhanced speed, strength and durability"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}cannonbolt`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Cannonbolt")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FCannonbolt.jpg?alt=media&token=3c59b70c-03f0-478f-ae1b-7b515a749f59")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Arburian Pelarota",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Transforms in to a sphere \nInvulnerable in sphere form \nSharp claws and teeth \nEnhanced strength, durability, agility and speed"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}stinkfly`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Stinkfly")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FStinkfly.jpg?alt=media&token=42a8dc38-60b3-4df7-925a-a0b560eedd5c")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Lepidopterran",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Flight \nSlime projection \nToxic gas & Saliva \nEnhanced strength, durability, agility and speed"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}diamondhead`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Diamondhead")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FDiamondhead.jpg?alt=media&token=4bec870b-ce4c-4a10-9fca-ed9f346d17b0")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Petrosapien",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Crystallokinesis \nWeapon manifestation, body alteration \nRegeneration \nEnhanced strength and durability"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}wildvine`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Wildvine")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FWildvine.jpg?alt=media&token=5d8c267f-0e75-414b-822a-e32a58d3addd")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Florauna",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Chlorokinesis \nElasticity and body alteration \nVine generation and tentacles \nEnhanced strength, flexibility, agility and digging"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}upgrade`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Upgrade")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FUpgrade.jpg?alt=media&token=cd6aada6-742f-4100-9d35-aa72aa566b97")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Galvanic Mechamorph",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: " Technokinesis \nOptic beam \nShapeshifting and regeneration \nEnhanced strength, flexibility, dexterity and durability"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}overflow`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Overflow")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOverflow.jpg?alt=media&token=b4b75b4c-e298-4fd0-a255-1c2bd1b3dd63")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Cascan",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Hydrokinesis \nWater blades & water absorption \nWater blades & water absorption \nEnhanced strength, durability, agility and speed"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}grey matter`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Grey Matter")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FGrey%20Matter.jpg?alt=media&token=0a8b770b-cddd-4394-971d-63d6027372b0")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Galvan",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Wall crawling \nSharp teeth, sticky skin \nUnderwater breathing \nEnhanced intelligence, agility, flexibility and jumping"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}xlr8`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("XLR8")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FXLR8.jpg?alt=media&token=1bc869d0-443f-46fa-b116-9d3da7ee6806")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Kineceleran",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Accelerated Thinking \nWall and Water Running, sticky skin \nVortex Creation \nEnhanced strength, durability, agility, speed and reflexe"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}humungousaur`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Humungousaur")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FHumangasaur.jpg?alt=media&token=36da0d3a-a8cf-4cee-b452-2e0fcbcbd877")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Vaxasaurian",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Stegosauride Features \nSonic Clap \nShock Waves \nEnhanced strength, flexibility, agility and digging"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}rath`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Rath")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FRath.jpg?alt=media&token=6069a427-37c3-4603-94c0-2640b602ba2a")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Appoplexian",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Shock Waves \nPowerful Roar \nExtendable Claws \nEnhanced strength, durability, agility, speed and reflexes"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}slapback`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Slapback")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FSlapback.jpg?alt=media&token=d0ce9d4b-6329-4fa7-a56c-7e409ba3f560")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Ekoplektoid",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Kinetic Self-Duplication \nSize Alteration \nStrength Amplification \nDuplicate Assimilation"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    } else if (msg.content.toLowerCase() === `${prefix}shock rock`) {
-      let embed = new Discord.MessageEmbed()
-        .setTitle("Shock Rock")
-        .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-        .setColor("#b0f013")
-        .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setImage("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FShock%20Rock.jpg?alt=media&token=0ec497e8-76d9-416e-a116-6655ed232849")
-        .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-        .setTimestamp()
-        .addFields({
-          name: "Species",
-          value: "Fulmini",
-          inline: true
-        })
-        .addFields({
-          name: "Powers & Abilities",
-          value: "Electrokinesis \nWeapon Manifestation \nForce Field Generation \nWormhole Generation"
-        })
-      msg.channel.send({
-        embed
-      });
-
-    }
-    // Cooldown Function
-    if (msg.content.toLowerCase() === `${prefix}help` || msg.content.toLowerCase() === `${prefix}it's hero time`) {
-      setTimeout(() => {
-        // Removes the user from the set after 20 seconds
-        talkedRecently.delete(msg.author.id);
-      }, 0);
+  // Omnitrix 
+  if (setting === "Omnitrix") {
+    if (talkedRecently.has(msg.author.id)) {
+      if (command !== "help") {
+        msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
+      }
     } else {
-      // Adds the user to the set so that they can't talk for 20 seconds
-      talkedRecently.add(msg.author.id);
-      setTimeout(() => {
-        // Removes the user from the set after 20 seconds
-        talkedRecently.delete(msg.author.id);
-      }, 20000);
+      function getAliens(obj, prop) {
+        if (res === true) {
+          return aliens.Omnitrix[obj][prop];
+        } else {
+          return;
+        }
+      }
+      if (res === true) {
+        let embed = new Discord.MessageEmbed()
+          .setTitle(getAliens(command, "name"))
+          .setAuthor("Omnitrix", `${author_img}`)
+          .setColor(`${color}`)
+          .setFooter("© Omnitrix", `${footer_img}`)
+          .setImage(getAliens(command, "image"))
+          .setThumbnail(`${omnitrix_logo}`)
+          .setTimestamp()
+          .addFields({
+            name: "Species",
+            value: getAliens(command, "species"),
+            inline: true
+          })
+          .addFields({
+            name: "Powers & Abilities",
+            value: getAliens(command, "abilities")
+          })
+        msg.channel.send({
+          embed
+        });
+
+        // Cooldown Function
+        if (command === "help" || command === "clear" || gifArr === "gif") {
+          setTimeout(() => {
+            talkedRecently.delete(msg.author.id);
+          }, 0);
+        } else {
+          // Adds the user to the set so that they can't talk for 30 seconds
+          talkedRecently.add(msg.author.id);
+          setTimeout(() => {
+            // Removes the user from the set after 30 seconds
+            talkedRecently.delete(msg.author.id);
+          }, 30000);
+        }
+      }
     }
-  }
-  // Help Embed - Commands List
-  if (msg.content.toLowerCase() === `${prefix}help` || msg.content.toLowerCase() === `${prefix}its hero time`) {
-    let embed = new Discord.MessageEmbed()
-      .setTitle("Omnitrix Commands list")
-      .setAuthor("Omnitrix", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix.png?alt=media&token=d8e260cd-dfea-4d8a-a5fa-24bff798833c")
-      .setColor("#b0f013")
-      .setFooter("© Nishith P", "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-      .setThumbnail("https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c")
-      .setTimestamp()
-      .addFields({
-        name: "It's Hero time !!",
-        value: "`o!Fourarms` \n`o!Heatblast` \n`o!Cannonbolt` \n`o!Stinkfly` \n`o!Diamondhead` \n`o!Wildvine` \n`o!Upgrade` \n`o!Overflow` \n`o!Grey matter` \n`o!XLR8` \n`o!Humungousaur` \n`o!Rath` \n`o!Slapback` \n`o!Shock rock`",
+    // Help Embed - Commands List
+    if (command === "help") {
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Omnitrix Commands list")
+        .setAuthor("Omnitrix", `${author_img}`)
+        .setColor(`${color}`)
+        .setFooter("© Nishith P", `${footer_img}`)
+        .setThumbnail(`${omnitrix_logo}`)
+        .setTimestamp()
+        .addFields({
+          name: "It's Hero time !!",
+          value: "`o!Fourarms` \n`o!Heatblast` \n`o!Cannonbolt` \n`o!Stinkfly` \n`o!Diamondhead` \n`o!Wildvine` \n`o!Upgrade` \n`o!Overflow` \n`o!Grey matter` \n`o!XLR8` \n`o!Humungousaur` \n`o!Rath` \n`o!Slapback` \n`o!Shock rock` \n`o!Jetray` \n`o!Goop` \n`o!Way big`",
+        });
+      msg.channel.send({
+        embed
       });
-    msg.channel.send({
-      embed
-    });
+    }
+    // Antitrix
+  } else if (setting === "Antitrix") {
+    if (talkedRecently11.has(msg.author.id)) {
+      if (command !== "help") {
+        msg.channel.send("The Antitrix is in cooldown. \nPlease wait: " + msg.author.username);
+      }
+    } else {
+      function getAliens(obj, prop) {
+        if (res11 === true) {
+          return aliens.Antitrix[obj][prop];
+        } else {
+          return;
+        }
+      }
+      if (res11 === true) {
+        let embed = new Discord.MessageEmbed()
+          .setTitle(getAliens(command, "name"))
+          .setAuthor("Antitrix", `${antitrix_author_img}`)
+          .setColor(`${color11}`)
+          .setFooter("© Antitrix", `${antitrix_logo}`)
+          .setImage(getAliens(command, "image"))
+          .setThumbnail(`${antitrix_logo}`)
+          .setTimestamp()
+          .addFields({
+            name: "Species",
+            value: getAliens(command, "species"),
+            inline: true
+          })
+          .addFields({
+            name: "Powers & Abilities",
+            value: getAliens(command, "abilities")
+          })
+        msg.channel.send({
+          embed
+        });
+
+        // Cooldown Function
+        if (command === "help" || command === "clear" || gifArr === "gif") {
+          setTimeout(() => {
+            talkedRecently11.delete(msg.author.id);
+          }, 0);
+        } else {
+          // Adds the user to the set so that they can't talk for 30 seconds
+          talkedRecently11.add(msg.author.id);
+          setTimeout(() => {
+            // Removes the user from the set after 30 seconds
+            talkedRecently11.delete(msg.author.id);
+          }, 30000);
+        }
+      }
+    }
+    // Help Embed - Commands List
+    if (command === "help") {
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Antitrix Commands list")
+        .setAuthor("Antitrix", `${antitrix_author_img}`)
+        .setColor(`${color11}`)
+        .setFooter("© Nishith P", `${antitrix_logo}`)
+        .setThumbnail(`${antitrix_logo}`)
+        .setTimestamp()
+        .addFields({
+          name: "Let's bring the pain !!",
+          value: "`a!Wreckingbolt` \n`a!Thornblade` \n`a!Undertow` \n`a!Dark matter` \n`a!Crystalfist` \n`a!Bootleg` \n`a!Quadsmack` \n`a!Hotshot` \n`a!Rush` \n`a!Skunkmoth` \n`a!Bashmouth`",
+        });
+      msg.channel.send({
+        embed
+      });
+    }
+
   }
 });
