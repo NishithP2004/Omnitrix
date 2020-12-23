@@ -18,7 +18,7 @@ const talkedRecently = new Set();
 const talkedRecently11 = new Set();
 var setting;
 
-client.login(process.env.TESTING_SANDBOX);
+client.login(process.env.TOKEN);
 
 client.on('ready', () => {
   client.user.setStatus("online");
