@@ -125,7 +125,7 @@ client.on('message', async (msg) => {
         });
       })
     } else {
-      msg.channel.send("Sorry, I dont have the necessary permissions to execute that command.");
+      msg.channel.send("Sorry, I don't have the necessary permissions to execute that command.(MANAGE_MESSAGES)");
     }
   }
 
