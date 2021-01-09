@@ -15,8 +15,13 @@ const {
 const aliens = require('./aliens.json');
 require('dotenv').config() // env
 const fetch = require('node-fetch');
-const db = require('quick.db');
 const canvacord = require('canvacord');
+const { Database } = require("quickmongo");
+const db = new Database(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.ikanc.mongodb.net/Omnitrix`);
+
+db.on("ready", () => {
+  console.log("Database connected!");
+});
 
 const talkedRecently = new Set();
 var setting;
@@ -76,7 +81,7 @@ client.on('message', async (msg) => {
   // Splitting message content
   const args = msg.content.toLowerCase().slice(defPrefix.length).trim().split(/ +/);
   var miscCom = "";
-  var command, alienName;
+  var command, alienName, miscComBool;
   if (args.length > 1) {
     miscCom = args[0];
     command = args.slice(0, args.length).join(" ");
@@ -87,6 +92,13 @@ client.on('message', async (msg) => {
     alienName = command;
   }
 
+  var miscComArray = ["help", "rank", "clear", "gif", "addxp", "invite", "vote"];
+  if (miscComArray.indexOf(miscCom) != -1) {
+    miscComBool = true
+  } else {
+    miscComBool = false
+  }
+
   // Alien cmd analysing regex
   const regex = /(heatblast|fourarms|stinkfly|cannonbolt|diamondhead|wildvine|upgrade|overflow|greymatter|xlr8|humungousaur|rath|slapback|shockrock|jetray|goop|waybig)/;
   const kixRegex = /(heatblast|fourarms|cannonbolt|diamondhead|xlr8|humungousaur|rath|slapback|shockrock|jetray)/;
@@ -95,7 +107,7 @@ client.on('message', async (msg) => {
 
   // User Variables
   let user = msg.author;
-  let key = db.has(`${user.id}_items`, "Omni-Key");
+  let key = await db.has(`${user.id}_items_omni-key`);
 
   // XP
   async function addXP(num) {
@@ -131,9 +143,9 @@ client.on('message', async (msg) => {
       time: 1200000
     }).then(collected => {
       if (collected.first().content.toLowerCase() === 'insert') {
-        db.push(`${user.id}_items`, "Omni-Key")
+        db.push(`${user.id}_items_omni-key`)
         msg.channel.send("Omni-Key inserted successfully !!");
-        msg.channel.send(`Congratulations :tada: <@${user.id}>, You have now unlocked Omni-Kix & Omni-Naut functions.Now, transform into an alien and type **${defPrefix}kix** or **${defPrefix}naut**`)
+        msg.channel.send(`Congratulations :tada: <@${user.id}>, You have now unlocked Omni-Kix & Omni-Naut functions.Now, you can transform into an alien and type **${defPrefix}kix** or **${defPrefix}naut to access Omni-Kix armour & Omni-Naut suit respectively.**`)
         addXP(10);
       }
     });
@@ -180,7 +192,7 @@ client.on('message', async (msg) => {
   // Omnitrix 
   if (setting === "Omnitrix") {
     if (talkedRecently.has(msg.author.id + " Omnitrix")) {
-      if (command !== "help" || command !== "clear" || miscCom !== "gif" || command !== "vote" || command !== "invite" || miscCom !== "rank") {
+      if (miscComBool === false) {
         msg.channel.send("The Omnitrix is in cooldown. \nPlease wait: " + msg.author.username);
       }
     } else {
@@ -215,7 +227,7 @@ client.on('message', async (msg) => {
         });
 
         // Cooldown Function
-        if (command === "help" || command === "clear" || miscCom === "gif" || command === "vote" || command === "invite" || miscCom === "rank") {
+        if (miscComBool === true) {
           setTimeout(() => {
             talkedRecently.delete(msg.author.id + " Omnitrix");
           }, 0);
@@ -226,7 +238,9 @@ client.on('message', async (msg) => {
             while (alienLog.length != 0) {
               alienLog.pop(alienName);
             }
-            msg.channel.send("https://tenor.com/WhKd.gif");
+            if (!miscComBool) {
+              msg.channel.send("Omnitrix timed out !!");
+            }
             // Adds the user to the set so that they can't transform for 30 seconds
             talkedRecently.add(msg.author.id + " Omnitrix");
             setTimeout(() => {
@@ -259,7 +273,7 @@ client.on('message', async (msg) => {
     // Antitrix
   } else if (setting === "Antitrix") {
     if (talkedRecently.has(msg.author.id + " Antitrix")) {
-      if (command !== "help" || command !== "clear" || miscCom !== "gif" || command !== "vote" || command !== "invite" || miscCom !== "rank") {
+      if (miscComBool === false) {
         msg.channel.send("The Antitrix is in cooldown. \nPlease wait: " + msg.author.username);
       }
     } else {
@@ -294,7 +308,7 @@ client.on('message', async (msg) => {
         });
 
         // Cooldown Function
-        if (command === "help" || command === "clear" || miscCom === "gif" || command === "vote" || command === "invite" || miscCom === "rank") {
+        if (miscComBool === true) {
           setTimeout(() => {
             talkedRecently.delete(msg.author.id + " Antitrix");
           }, 0);
@@ -383,6 +397,27 @@ client.on('message', async (msg) => {
   } else if (!key && command === "kix" || command === "naut") {
     msg.reply("Omni-Kix & Omni-Naut features unlock at Level 6");
   }
+
+  //..............................................................
+  //.MMMMMMM....MMMMMMM..IIIII....SSSSSSSSS........CCCCCCCCCC.....
+  //.MMMMMMM....MMMMMMM..IIIII...SSSSSSSSSSSS.....CCCCCCCCCCCC....
+  //.MMMMMMM....MMMMMMM..IIIII..SSSSSSSSSSSSS....CCCCCCCCCCCCCC...
+  //.MMMMMMMM...MMMMMMM..IIIII..SSSSSS.SSSSSSS..CCCCCCCCCCCCCCCC..
+  //.MMMMMMMM..MMMMMMMM..IIIII..SSSSS....SSSSS..CCCCCC....CCCCC...
+  //.MMMMMMMM..MMMMMMMM..IIIII..SSSSSS.........SCCCCC.............
+  //.MMMMMMMM..MMMMMMMM..IIIII..SSSSSSSSSS.....SCCCC..............
+  //.MMMMMMMMMMMMMMMMMM..IIIII..SSSSSSSSSSSS...SCCCC..............
+  //.MMMMMMMMMMMMMMMMMM..IIIII....SSSSSSSSSSS..SCCCC..............
+  //.MMMMMMMMMMMMMMMMMM..IIIII......SSSSSSSSSS.SCCCC..............
+  //.MMMMMMMMMMMMMMMMMM..IIIII..........SSSSSS.SCCCC..............
+  //.MMMMMMMMMMMMMMMMMM..IIIII.ISSSS.....SSSSS.SCCCCC.............
+  //.MMMMM.MMMMMMMMMMMM..IIIII.ISSSSS....SSSSS..CCCCCC....CCCCC...
+  //.MMMMM.MMMMMM.MMMMM..IIIII.ISSSSSSSSSSSSSS..CCCCCCC.CCCCCCCC..
+  //.MMMMM.MMMMMM.MMMMM..IIIII..SSSSSSSSSSSSSS...CCCCCCCCCCCCCC...
+  //.MMMMM.MMMMMM.MMMMM..IIIII...SSSSSSSSSSSS.....CCCCCCCCCCCC....
+  //.MMMMM..MMMMM..MMMM..IIIII....SSSSSSSSSS.......CCCCCCCCCC.....
+  //..............................................................
+
 
   // Rank card
   if (miscCom === "rank") {
@@ -553,8 +588,8 @@ client.on('message', async (msg) => {
     if (msg.author.id === process.env.ADMIN) {
       let user = msg.mentions.users.first();
       let amount = parseInt(args[2], 10);
-      await db.add(`${user.id}_xp`, amount);
-      msg.channel.send(`${amount}xp has been credited to <@${user.id}>`)
+      db.add(`${user.id}_xp`, amount);
+      msg.channel.send(`**${amount}xp** successfully credited to <@${user.id}>`)
     } else {
       msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
     }
