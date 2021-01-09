@@ -16,7 +16,9 @@ const aliens = require('./aliens.json');
 require('dotenv').config() // env
 const fetch = require('node-fetch');
 const canvacord = require('canvacord');
-const { Database } = require("quickmongo");
+const {
+  Database
+} = require("quickmongo");
 const db = new Database(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.ikanc.mongodb.net/Omnitrix`);
 
 db.on("ready", () => {
@@ -463,18 +465,22 @@ client.on('message', async (msg) => {
   }
 
   // Custom Prefix
-  if (msg.member.hasPermission(permission[0]) || msg.member.hasPermission(permission[1])) {
-    if (args[0] === "prefix") {
+  if (args[0] === "prefix") {
+    if (msg.member.hasPermission(permission[0]) || msg.member.hasPermission(permission[1])) {
       db.set(`${guild_id}_prefix1`, args[1]);
       db.set(`${guild_id}_prefix2`, args[2]);
       msg.channel.send("Prefix set sucessfully !!");
-    } else if (command === "reset") {
+    } else {
+      msg.channel.send(`Sorry!! <@${user.id}> you don't have the necessary permissions to execute this command.`)
+    }
+  } else if (command === "reset") {
+    if (msg.member.hasPermission(permission[0]) || msg.member.hasPermission(permission[1])) {
       db.set(`${guild_id}_prefix1`, `${prefix}`);
       db.set(`${guild_id}_prefix2`, `${prefix11}`);
       msg.channel.send("Prefix re-setted sucessfully !!");
+    } else {
+      msg.channel.send(`Sorry!! <@${user.id}> you don't have the necessary permissions to execute this command.`)
     }
-  } else if (!msg.member.hasPermission(permission[0]) || !msg.member.hasPermission(permission[1])) {
-    msg.channel.send(`Sorry!! <@${user.id}> you don't have the necessary permissions to execute this command.`)
   }
 
   // Returns default prefix 
