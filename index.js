@@ -473,7 +473,7 @@ client.on('message', async (msg) => {
       db.set(`${guild_id}_prefix2`, `${prefix11}`);
       msg.channel.send("Prefix re-setted sucessfully !!");
     }
-  } else {
+  } else if (!msg.member.hasPermission(permission[0]) || !msg.member.hasPermission(permission[1])) {
     msg.channel.send(`Sorry!! <@${user.id}> you don't have the necessary permissions to execute this command.`)
   }
 
