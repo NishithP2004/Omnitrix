@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/NishithP2004/Omnitrix#readme",
   "dependencies": {
+    "canvacord": "^5.0.8",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "quick.db": "^7.1.3"
   }
 }
