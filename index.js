@@ -435,6 +435,7 @@ client.on('message', async (msg) => {
     if (!user.bot) {
       currentXP = await db.get(`${user.id}_xp`) || 0;
       lvl = await db.get(`${user.id}_level`) || 1;
+      xpNeeded = (lvl * 200);
       let img = user.displayAvatarURL({
         dynamic: false,
         format: "jpg"
