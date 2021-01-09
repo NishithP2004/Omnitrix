@@ -26,7 +26,7 @@ db.on("ready", () => {
 const talkedRecently = new Set();
 var setting;
 var alienLog = [];
-const permission = ["ADMINISTRATOR", "MANAGE_SERVER", "MANAGE_MESSAGES"];
+const permission = ["ADMINISTRATOR", "MANAGE_GUILD", "MANAGE_MESSAGES"];
 
 client.login(process.env.TOKEN);
 
