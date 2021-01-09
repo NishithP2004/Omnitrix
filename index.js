@@ -553,7 +553,7 @@ client.on('message', async (msg) => {
     if (msg.author.id === process.env.ADMIN) {
       let user = msg.mentions.users.first();
       let amount = parseInt(args[2], 10);
-      db.add(`${user.id}_xp`, amount);
+      await db.add(`${user.id}_xp`, amount);
       msg.channel.send(`${amount}xp has been credited to <@${user.id}>`)
     } else {
       msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
