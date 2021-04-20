@@ -1,0 +1,10 @@
+> **o!gif <search q>(optional)** - Sends a gif based on the search query 
+> **o!clear** - Clears the bot chat history 
+> **o!prefix <1> <2>** - Sets custom prefix 1, 2 for Omnitrix & Antitrix 
+> **o!reset** - Resets custom prefix 
+> **@mention** - Sends the default prefix of the bot in the Server 
+> **o!rank <user>(optional)** - Sends rank card of the mentioned user 
+> **o!invite** - Sends bot invite link 
+> **o!vote** - Sends bot Listing to Vote 
+> **o!g <search q>** - Sends the response for the given search query 
+> **o!yt <search q>** - Sends a YouTube video link based on the given search query.

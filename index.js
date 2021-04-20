@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const { MessageAttachment } = require('discord.js');
 const client = new Discord.Client();
 const {
   prefix,
@@ -15,6 +16,7 @@ const {
 const aliens = require('./aliens.json');
 require('dotenv').config() // env
 const fetch = require('node-fetch');
+const fs = require('fs')
 const canvacord = require('canvacord');
 const {
   Database
@@ -81,31 +83,41 @@ client.on('message', async (msg) => {
   if (!msg.content.startsWith(defPrefix) && !msg.content.startsWith(defPrefix11) && !msg.mentions.has(client.user.id)) return;
 
   // Splitting message content
-  const args = msg.content.toLowerCase().slice(defPrefix.length).trim().split(/ +/);
+  const args = msg.content.slice(defPrefix.length).trim().split(/ +/);
   var miscCom = "";
   var command, alienName, miscComBool;
   if (args.length > 1) {
-    miscCom = args[0];
-    command = args.slice(0, args.length).join(" ");
-    alienName = args.slice(0, args.length).join("");
+    miscCom = args[0].toLowerCase();
+    command = args.slice(1, args.length).join(" ");
+    alienName = args.slice(0, args.length).join("").toLowerCase();
   } else {
-    command = args.shift();
+    command = args.shift().toLowerCase();
     miscCom = command;
     alienName = command;
   }
 
-  var miscComArray = ["help", "rank", "clear", "gif", "addxp", "invite", "vote"];
+  var miscComArray = ["help", "rank", "clear", "gif", "addxp", "invite", "vote", "g", "yt"];
   if (miscComArray.indexOf(miscCom) != -1) {
     miscComBool = true
   } else {
     miscComBool = false
   }
 
-  // Alien cmd analysing regex
-  const regex = /(heatblast|fourarms|stinkfly|cannonbolt|diamondhead|wildvine|upgrade|overflow|greymatter|xlr8|humungousaur|rath|slapback|shockrock|jetray|goop|waybig)/;
+  // Alien cmd analysing regex / Array
+  //const regex = /(heatblast|fourarms|stinkfly|cannonbolt|diamondhead|wildvine|upgrade|overflow|greymatter|xlr8|humungousaur|rath|slapback|shockrock|jetray|goop|waybig)/;
+  const omnitrixAliens = Object.keys(aliens["Omnitrix"]);
+  const antitrixAliens = Object.keys(aliens["Antitrix"]);
   const kixRegex = /(heatblast|fourarms|cannonbolt|diamondhead|xlr8|humungousaur|rath|slapback|shockrock|jetray)/;
   const nautRegex = /(heatblast|humungousaur|jetray|shockrock)/;
-  const regex11 = /(wreckingbolt|thornblade|undertow|darkmatter|crystalfist|bootleg|quadsmack|hotshot|rush|skunkmoth|bashmouth)/;
+  //const regex11 = /(wreckingbolt|thornblade|undertow|darkmatter|crystalfist|bootleg|quadsmack|hotshot|rush|skunkmoth|bashmouth)/;
+  // Alien checking function
+  function alienCheck(arr, name) {
+    if (arr.indexOf(name) !== -1) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   // User Variables
   let user = msg.author;
@@ -154,7 +166,11 @@ client.on('message', async (msg) => {
   }
 
   // Main Commands List
-  if (command === "it's hero time") {
+  if (args.join(" ").toLowerCase() === "it's hero time") {
+    let str = fs.readFileSync(`./help.txt`, 'utf-8', (err, file) => {
+      if (err) console.log(err);
+    })
+
     let embed = new Discord.MessageEmbed()
       .setTitle("Omnitrix Commands Palette")
       .setAuthor("Omnitrix", `${author_img}`)
@@ -174,7 +190,7 @@ client.on('message', async (msg) => {
       })
       .addFields({
         name: "Misc",
-        value: "> **o!gif <search q>(optional)** - Sends a gif based on the search query \n> **o!clear** - Clears the bot chat history \n> **o!prefix <1> <2>** - Sets custom prefix 1, 2 for Omnitrix & Antitrix \n> **o!reset** - Resets custom prefix \n> **@mention** - Sends the default prefix of the bot in the Server \n> **o!rank <user>(optional)** - Sends rank card of the mentioned user \n> **o!invite** - Sends bot invite link \n> **o!vote** - Sends bot Listing to Vote",
+        value: str,
         inline: false
       })
     msg.channel.send({
@@ -185,10 +201,10 @@ client.on('message', async (msg) => {
   // Identifying mode
   if (msg.content.startsWith(defPrefix)) {
     setting = "Omnitrix";
-    var res = regex.test(alienName);
+    var res = alienCheck(omnitrixAliens, alienName);
   } else if (msg.content.startsWith(defPrefix11)) {
     setting = "Antitrix";
-    var res11 = regex11.test(alienName);
+    var res11 = alienCheck(antitrixAliens, alienName);
   }
 
   // Omnitrix 
@@ -580,14 +596,98 @@ client.on('message', async (msg) => {
     msg.channel.send(json.results[index].url);
   }
 
+  // YouTube Search & Google Search
+  if (miscCom == "yt") {
+    var query;
+    if (args.length > 1) {
+      query = command;
+
+      let url = `https://www.googleapis.com/youtube/v3/search?q=${query}&key=${process.env.YT_KEY}&part=snippet&maxResults=1`;
+
+      let video = await fetch(url)
+        .then(r => r.json())
+        .catch(err => { })
+
+      let ytVideoID = video["items"][0]["id"]["videoId"];
+
+      let embed = new Discord.MessageEmbed()
+        .setTitle(video["items"][0]["snippet"]["title"])
+        .setDescription(video["items"][0]["snippet"]["description"])
+        .setAuthor("Omnitrix", `${author_img}`)
+        .setColor(`#FF0000`)
+        .setFooter("Powered by YouTube", `${footer_img}`)
+        .setImage(video["items"][0]["snippet"]["thumbnails"]["high"]["url"])
+        .setTimestamp()
+        .addFields({
+          name: "Link",
+          value: `https://youtu.be/${ytVideoID}`,
+          inline: true
+        })
+
+      msg.channel.send({
+        embed
+      });
+    } else {
+      msg.reply("Please provide a search query !");
+    }
+  } else if (miscCom == "g") {
+    var query;
+    if (args.length > 1) {
+      query = command;
+
+      let url = `https://www.googleapis.com/customsearch/v1/?cx=${process.env.CX}&key=${process.env.G_SEARCH_KEY}&imgSize=medium&q=${query}`;
+
+      let response = await fetch(url)
+        .then(res => res.json())
+        .catch(err => { console.log(err) })
+
+      let response_id = response["items"][Math.floor(Math.random() * response["items"].length)];
+      let pictureUrl;
+
+      if (typeof response_id["pagemap"]["cse_image"][0]["src"] !== undefined) {
+        pictureUrl = response_id["pagemap"]["cse_image"][0]["src"];
+      } else if (typeof response_id["pagemap"]["hcard"][0]["photo"] !== undefined) {
+        pictureUrl = response_id["pagemap"]["hcard"][0]["photo"];
+      } else {
+        pictureUrl = response_id["pagemap"]["cse_thumbnail"][0]["src"];
+      }
+
+      let embed = new Discord.MessageEmbed()
+        .setTitle(response_id["title"])
+        .setDescription(response_id["snippet"])
+        .setAuthor("Omnitrix", `${author_img}`)
+        .setColor(`${omnicolor}`)
+        .setFooter("Powered by Google", `${footer_img}`)
+        .setImage(pictureUrl)
+        .setTimestamp()
+        .addFields({
+          name: "Link",
+          value: `${response_id["link"]}`,
+          inline: true
+        })
+
+      msg.channel.send({
+        embed
+      });
+    } else {
+      msg.reply("Please provide a search query !");
+    }
+  }
+
   // Admin - sever list command
   if (command === "stats") {
     if (msg.author.id === process.env.ADMIN) {
-      let counter = 0;
-      client.guilds.cache.forEach((guild) => {
-        ++counter;
-      })
-      msg.channel.send(`Server count: **${counter}**`);
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Server Stats")
+        .setDescription(`${client.guilds.cache.size}`)
+        .setAuthor("Omnitrix", `${author_img}`)
+        .setColor(`${omnicolor}`)
+        .setFooter("© Omnitrix", `${footer_img}`)
+        .setTimestamp()
+
+      msg.channel.send({
+        embed
+      });
     } else {
       msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
     }
@@ -597,6 +697,49 @@ client.on('message', async (msg) => {
       let amount = parseInt(args[2], 10);
       db.add(`${user.id}_xp`, amount);
       msg.channel.send(`**${amount}xp** successfully credited to <@${user.id}>`)
+    } else {
+      msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
+    }
+  } else if (miscCom === "eval") {
+    if (msg.author.id === process.env.ADMIN) {
+      var output = await eval(command);
+      let embed = new Discord.MessageEmbed()
+        .setTitle("Code Evaluator")
+        .setAuthor("Omnitrix", `${author_img}`)
+        .setColor(`${omnicolor}`)
+        .setFooter("© Omnitrix", `${footer_img}`)
+        .setTimestamp()
+        .addFields({
+          name: ":inbox_tray: Input",
+          value: `\`\`\`${command}\`\`\``,
+          inline: false
+        })
+        .addFields({
+          name: ":outbox_tray: Output",
+          value: `\`\`\`${output}\`\`\``,
+          inline: false
+        })
+      msg.channel.send({
+        embed
+      });
+    } else {
+      msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
+    }
+  } else if (miscCom === "ls") {
+    if (msg.author.id === process.env.ADMIN) {
+      let guilds = "";
+
+      client.guilds.cache.forEach((guild) => {
+        guilds += guild.name + "\n";
+      })
+
+      fs.writeFileSync(`./guilds.txt`, guilds, (err) => {
+        if (err) console.log(err);
+      })
+
+      const buffer = fs.readFileSync(`./guilds.txt`);
+      const attachment = new MessageAttachment(buffer, 'guilds.txt');
+      msg.channel.send(attachment);
     } else {
       msg.channel.send(`Sorry <@${msg.author.id}>, only my creator can execute this command.`)
     }
