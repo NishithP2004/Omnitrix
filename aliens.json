@@ -157,6 +157,36 @@
             "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FWaybig.png?alt=media&token=8150eca9-abee-4cd5-b091-a969a7b9bbb1",
             "species": "To'kustar",
             "abilities": "Cosmic Rays \nSpace Survivability \nEnergy Deflection \nSharp Head Fin, Arm Blades, Shoulder Blades \nEnhanced Strength, Durability & Agility"
+        },
+        "gax": {
+            "name": "Gax",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FGax.png?alt=media&token=5f35b5dd-0e92-4192-9eef-b4a9d9fe08ec",
+            "species": "Chimera Sui Generis",
+            "abilities": "Enhanced Strength, Durability, Speed, Reflexes & Agility \nWall Climbing \nShapeshifting Arms \nLaser Vision \nTentacles"
+        },
+        "surge": {
+            "name": "Surge",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FSurge.png?alt=media&token=000177bd-ce25-4f4f-8398-baf238946768",
+            "species": "Xerge",
+            "abilities": "Xerge Manipulation, Constructs \nFlight \nShapeshifting \nOptic Laser \nEnhanced Speed, Agility & Durability"
+        },
+        "spidermonkey": {
+            "name": "Spidermonkey",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FSpidermonkey.png?alt=media&token=250eb88c-00be-4e70-ace3-f1a8dd3fd991",
+            "species": "Arachnichimp",
+            "abilities": "Webbing Generation \nEnhanced Agility, Balance, Reflexes, Dexterity & Acrobatics \nWeb Scaling \nWall Scaling \nSharp Teeth"
+        },
+        "buzzshock": {
+            "name": "Buzzshock",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FBuzzhock.png?alt=media&token=5af747ab-6a34-4dc8-a46f-b7c646c16b1b",
+            "species": "Nosedeenian",
+            "abilities": "Electrokinesis \nTechnokinesis \nElectrical Possession \nElectrokinetic Flight \nSonic Scream \nEnhanced Strength, Agility, Speed & Durability \nSelf-Duplication"
+        },
+        "alienx": {
+            "name": "Alien X",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%2FAlienX.png?alt=media&token=eb807eb9-1c69-4636-aa4d-ca3d4ee3172d",
+            "species": "Celestialsapien",
+            "abilities": "Metamorphic Arm \nWeapon Manifestation \nTeleportation \nTelekinesis \nLaser Vision \nEnergy Beams \nLevitation \nDimensional Travel"
         }
     },
     "Antitrix": {
@@ -225,6 +255,12 @@
             "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FBashmouth.png?alt=media&token=2c07f9a0-41d9-409f-9701-ed9845868510",
             "species": "Mutant Unknown",
             "abilities": "Armor Generation \nSkilled Melee Combatan \nPowerful Roar \nRetractable Metal Teeth \nSharp claws and teeth \nEnhanced strength, durability, agility and speed"
+        },
+        "humungoraptor": {
+            "name": "Humungoraptor",
+            "image": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2FHumungoraptor.png?alt=media&token=cdd6396b-9a36-428e-beaa-60af1315d67d",
+            "species": "Mutant Vaxasaurian",
+            "abilities": "Enhanced Strength, Durability, Agility, Reflexes & Speed \nSharp Teeth, Feet, Claws & Back Spikes \nShockwave Generation \nEnergy Generation"
         }
     }
 

@@ -281,7 +281,7 @@ client.on('message', async (msg) => {
         .setTimestamp()
         .addFields({
           name: "It's Hero time !!",
-          value: "`Fourarms` \n`Heatblast` \n`Cannonbolt` \n`Stinkfly` \n`Diamondhead` \n`Wildvine` \n`Upgrade` \n`Overflow` \n`Grey matter` \n`XLR8` \n`Humungousaur` \n`Rath` \n`Slapback` \n`Shock rock` \n`Jetray` \n`Goop` \n`Way big`",
+          value: "`Fourarms` \n`Heatblast` \n`Cannonbolt` \n`Stinkfly` \n`Diamondhead` \n`Wildvine` \n`Upgrade` \n`Overflow` \n`Grey matter` \n`XLR8` \n`Humungousaur` \n`Rath` \n`Slapback` \n`Shock rock` \n`Jetray` \n`Goop` \n`Way big` \n`Gax` \n`Surge` \n`Spidermonkey` \n`Buzzshock` \n`Alien X`",
         });
       msg.channel.send({
         embed
@@ -352,7 +352,7 @@ client.on('message', async (msg) => {
         .setTimestamp()
         .addFields({
           name: "Let's bring the pain !!",
-          value: "`Wreckingbolt` \n`Thornblade` \n`Undertow` \n`Dark matter` \n`Crystalfist` \n`Bootleg` \n`Quadsmack` \n`Hotshot` \n`Rush` \n`Skunkmoth` \n`Bashmouth`",
+          value: "`Wreckingbolt` \n`Thornblade` \n`Undertow` \n`Dark matter` \n`Crystalfist` \n`Bootleg` \n`Quadsmack` \n`Hotshot` \n`Rush` \n`Skunkmoth` \n`Bashmouth` \n`Humungoraptor`",
         });
       msg.channel.send({
         embed
