@@ -258,7 +258,7 @@ client.on('message', async (msg) => {
   function getOKixOrNaut(check, boost, obj, prop) {
     if (check === true) {
       addXP(10);
-      return aliens.Omnitrix[obj][`omni${boost}`][prop];
+      return aliens["Omnitrix (RE)"][obj][`omni${boost}`][prop];
     } else {
       return;
     }
