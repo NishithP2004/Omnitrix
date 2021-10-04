@@ -177,21 +177,21 @@ client.on('message', async (msg) => {
     }
   }
 
-  function timer(loger, time = 45000, cooldown = 30000) {
-    // Adds current alien data and removes it after 40s.
+  function timer(loger, time = 60000, cooldown = 30000, set) {
+    // Adds current alien data and removes it after 60s.
     loger.push(alienName);
     setTimeout(() => {
       while (loger.length != 0) {
         loger.pop(alienName);
       }
       if (miscComBool === false) {
-        msg.channel.send(setting + " timed out !!");
+        msg.channel.send(set + " timed out !!");
       }
       // Adds the user to the set so that they can't transform for 30 seconds
-      talkedRecently.add(msg.author.id + " " + setting);
+      talkedRecently.add(msg.author.id + " " + set);
       setTimeout(() => {
         // Removes the user from the set after 30 seconds
-        talkedRecently.delete(msg.author.id + " " + setting);
+        talkedRecently.delete(msg.author.id + " " + set);
       }, cooldown);
     }, time)
 
@@ -244,14 +244,14 @@ client.on('message', async (msg) => {
     }
   }
 
-  function cooldown(check = miscComBool, loger) {
+  function cooldown(check = miscComBool, loger, set) {
     // Cooldown Function
     if (check === true) {
       setTimeout(() => {
-        talkedRecently.delete(msg.author.id + " " + setting);
+        talkedRecently.delete(msg.author.id + " " + set);
       }, 0);
     } else {
-      timer(loger);
+      timer(loger, 60000, 30000, set);
     }
   }
 
@@ -547,7 +547,7 @@ client.on('message', async (msg) => {
         transform(author_img, omnitrix_logo, color)(res, 10, setting, alienName)
 
         // Cooldown Function
-        cooldown(miscComBool, alienLog)
+        cooldown(miscComBool, alienLog, "Omnitrix (RE)")
       }
     }
     // Help Embed - Commands List
@@ -579,7 +579,7 @@ client.on('message', async (msg) => {
         transform(antitrix_author_img, antitrix_logo, color11)(res11, 11, setting, alienName)
 
         // Cooldown Function
-        cooldown(miscComBool, alienLogAnti)
+        cooldown(miscComBool, alienLogAnti, "Antitrix")
       }
     }
     // Help Embed - Commands List
@@ -621,7 +621,7 @@ client.on('message', async (msg) => {
 
         transform(ultimatrix_author_img, omnitrix_logo, omnicolor)(resUA, 10, setting, alienName)
         // Cooldown Function
-        cooldown(miscComBool, alienLogUA)
+        cooldown(miscComBool, alienLogUA, "Ultimatrix")
       }
     }
     // Help Embed - Commands List
@@ -668,7 +668,7 @@ client.on('message', async (msg) => {
 
         transform(omnitrix_OG_author_img, omnitrix_logo, omnicolor)(resOG, 10, setting, alienName)
         // Cooldown Function
-        cooldown(miscComBool, alienLogOG)
+        cooldown(miscComBool, alienLogOG, "Omnitrix (OG)")
       }
     }
     // Help Embed - Commands List
@@ -715,7 +715,7 @@ client.on('message', async (msg) => {
 
         transform(omnitrix_OV_author_img, omnitrix_OV_logo, omnicolor)(resOV, 10, setting, alienName)
         // Cooldown Function
-        cooldown(miscComBool, alienLogOV)
+        cooldown(miscComBool, alienLogOV, "Omnitrix (OV)")
       }
     }
     // Help Embed - Commands List
