@@ -1,6 +1,9 @@
 {
-    "prefix": "o!",
+    "prefix": "r!",
     "prefix11": "a!",
+    "prefixUA": "u!",
+    "prefixOG": "g!",
+    "prefixOV": "o!",
     "color": "#b0f013",
     "color11": "#ff3208",
     "omnicolor": "#75fd2b",
@@ -8,5 +11,9 @@
     "footer_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c",
     "omnitrix_logo": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2Fomnitrix-logo.png?alt=media&token=6f9d7a91-4b88-4408-8ab1-801abf7d627c",
     "antitrix_logo": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2Fantitrix-logo.png?alt=media&token=f42b43df-dbfc-4afc-87aa-e928c5a139d0",
-    "antitrix_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2Fantitrix.png?alt=media&token=deba6b82-cf72-4dc4-a143-c1e2c09fa7eb"
+    "antitrix_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FAntitrix%2Fantitrix.png?alt=media&token=deba6b82-cf72-4dc4-a143-c1e2c09fa7eb",
+    "ultimatrix_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FUltimatrix.png?alt=media&token=26cadc6a-268d-4f84-8375-0d8c2bf24f75",
+    "omnitrix_OG_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOminitrix%20-%20OG.png?alt=media&token=6a9cb8f9-d2fb-4dda-bd41-519fae943cf5",
+    "omnitrix_OV_author_img": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix%20-%20OV.png?alt=media&token=f3cf74f2-9da7-4c45-9b2b-991bfd8d1d27",
+    "omnitrix_OV_logo": "https://firebasestorage.googleapis.com/v0/b/plastic-storage.appspot.com/o/Omnitrix-bot%2FOmnitrix(OV)_Logo.jpg?alt=media&token=b4b6f63d-7ab7-4a37-8591-a814ee1be072"
 }
