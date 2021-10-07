@@ -32,6 +32,10 @@ const { Database } = require("quickmongo");
 const db = new Database(`mongodb+srv://root:${process.env.DB_PASSWORD}@cluster0.ikanc.mongodb.net/Omnitrix`);
 const express = require('express');
 
+// TownList.xyz Code
+const dtl = require("api-townlist-xyz");
+const dbl = new dtl(process.env.TOWNLIST_TOKEN, client);
+
 const app = express({
   urlEncoded: true
 });
@@ -63,11 +67,14 @@ const permission = ["ADMINISTRATOR", "MANAGE_GUILD", "MANAGE_MESSAGES"];
 
 client.login(process.env.TOKEN);
 
-client.on('ready', () => {
+client.on('ready', async () => {
   client.user.setStatus("online");
   client.user.setActivity("o!it's hero time", {
     type: "LISTENING"
   });
+
+  dbl.serverCount(); // TownList.xyz Server Count
+  
   console.log("It's Hero Time 👽 !!");
 })
 

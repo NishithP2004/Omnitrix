@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/NishithP2004/Omnitrix#readme",
   "dependencies": {
+    "api-townlist-xyz": "^1.0.0",
     "canvacord": "^5.0.8",
     "discord.js": "^12.4.1",
     "dotenv": "^8.2.0",
