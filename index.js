@@ -67,7 +67,7 @@ const permission = ["ADMINISTRATOR", "MANAGE_GUILD", "MANAGE_MESSAGES"];
 
 client.login(process.env.TOKEN);
 
-client.on('ready', async () => {
+client.on('ready', () => {
   client.user.setStatus("online");
   client.user.setActivity("o!it's hero time", {
     type: "LISTENING"
